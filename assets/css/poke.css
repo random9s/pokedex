@@ -446,6 +446,9 @@
     border-left: 2px solid #4d4d4d;
     border-right: 2px solid #4d4d4d;
 }
+.pokedex__blue_btn_clicked {
+    background-color: #386486;
+}
 .pokedex__btn_pills {
     width: 100px;
     height: 40px;
@@ -466,14 +469,17 @@
     margin-top: 10px;
     width: 250px;
 }
-.pokedex__btn_white {
+.pokedex__white_btn {
     float: left;
     height: 35px;
     width: 45px;
     background-color: #e7e7e7;
     border: 2px solid #4d4d4d;
 }
-.pokedex__btn_yellow_circle {
+.pokedex__white_btn_clicked {
+    background-color: #a1a1a1;
+}
+.pokedex__yellow_btn {
     float: left;
     height: 40px;
     width: 40px;
@@ -485,7 +491,9 @@
     border-left: 4px solid #4d4d4d; 
     border-right: 4px solid #4d4d4d; 
 }
-
+.pokedex__yellow_btn_clicked {
+    background-color: #cabe54;
+}
 .poke-img {
     background: transparent;
     height: 100px;
