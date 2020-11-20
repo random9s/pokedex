@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta property="og:description" content="Hey, I'm Jake Parham! I'm a software engineer at Bayer. Come say Hi!">
+		<meta property="og:author" content="Jake Parham">
+		<meta property="og:image" content="https://jakeparham.com/projects/pokedex/assets/img/pokedex-shot.png">
+		<link rel="preload" href="https://jakeparham.com/projects/pokedex/assets/img/pokedex-shot.png" as="image">
+		<link rel="shortcut icon" href="https://jakeparham.com/assets/img/icon/favicon.ico">
+		<title>Pokedex</title>
+		<link rel="stylesheet" href="assets/css/poke.css">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116357478-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-116357478-1');
+		</script>
+	</head>
+	<body>
+		<main>
+			<div id="pokedex" class="pokedex__wrap">
+				<div id="pokedex_outer_left" class="pokedex__outer">
+					<div class="pokedex__top_left">
+						<div class="pokedex__lights">
+							<div class="pokedex__blue_lens"></div>
+							<div class="pokedex__light pokedex__red_light"></div>
+							<div class="pokedex__light pokedex__yellow_light"></div>
+							<div class="pokedex__light pokedex__green_light"></div>
+						</div>
+					</div>
+					<div class="pokedex__top_middle"></div>
+					<div class="pokedex__top_right"></div>
+					<div id="pokedex-viewport" class="pokedex__bottom_wrap">
+						<div class="pokedex__bottom_left">
+							<div class="pokedex__arrow"></div>
+							<div class="pokedex__logo"></div>
+						</div>
+						<div class="pokedex__binding_wrap">
+							<div style="background-color: inherit; height: 20px"></div>
+							<div class="pokedex__binding"></div>
+							<div class="pokedex__binding"></div>
+							<div style="background-color: inherit; height: 290px"></div>
+							<div class="pokedex__binding"></div>
+							<div class="pokedex__binding"></div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div id="shadow" class="pokedex__shadow"></div>
+		</main>
+
+		<script src="assets/js/req.js"></script>
+		<script src="assets/js/el.js"></script>
+		<script src="assets/js/pokedex.js"></script>
+	</body>
+</html>
