@@ -52,7 +52,7 @@
 					return EL('div', {
 						id: id,
 						classList: ['pokedex__entry'],
-						events: { 'mouseover': e => { this.switchActive(e); }, 'click': e => { this.switchActive(e) } },
+						events: { mouseover: e => { this.switchActive(e); }, click: e => { this.switchActive(e) } },
 						children: [
 							span(index),
 							span(item.name)
@@ -101,7 +101,9 @@
 					cancelAnimationFrame(this.waveformAnimReq);
 					let canvas = document.getElementById('poke-cry-waveform');
 					let canvasCtx = canvas.getContext('2d');
+					console.log (canvas.width, canvas.height);
 					canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+					canvasCtx.beginPath();
 				});
 			});
 
@@ -167,7 +169,6 @@
 				this.viewingData = false;
 				this.active.scrollIntoView();
 			}
-
 		}
 
 		fetchPokemon() {
@@ -184,6 +185,19 @@
 
 				req.send();
 			});
+		}
+
+		showNotRegistered(show) {
+			let canvas = document.getElementById('poke-cry-waveform');
+			let canvasCtx = canvas.getContext('2d');
+			canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+			canvasCtx.beginPath();
+
+			if (show) {
+				canvasCtx.font = "13px pkmn_rbygscregular";
+				canvasCtx.textAlign = "center";
+				canvasCtx.fillText("Action Not Registered", canvas.width/2, canvas.height/2 + 5);
+			}
 		}
 
 		openPokedex () {
@@ -209,16 +223,16 @@
 											children: [
 												span('Data', {
 													id: 'poke-data',
-													events: { 'click': e => { this.loadData(e); } }
+													events: { click: e => { this.loadData(e); } }
 												}),
 												span('Cry', {
 													id: 'poke-cry',
-													events: { 'click': e => { this.playCry(e); } }
+													events: { click: e => { this.playCry(e); } }
 												}),
 												span('Area'),
 												span('Quit', {
 													id: 'poke-quit',
-													events: { 'click': e => { this.quit(e); } }
+													events: { click: e => { this.quit(e); } }
 												})
 											]
 										}),
@@ -246,6 +260,30 @@
 				viewport.appendChild(viewButtonsEl);
 			}.bind(this), 100);
 
+			const buttonClicked = function(color) {
+				return function (e) {
+					if (e.type === 'mousedown' || e.type === 'touchstart') {
+						e.target.classList.add(`pokedex__${color}_btn_clicked`);
+						this.showNotRegistered(true);
+					} else if (e.type === 'mouseup' || e.type === 'touchend') {
+						e.target.classList.remove(`pokedex__${color}_btn_clicked`);
+						this.showNotRegistered(false);
+					}
+				}.bind(this);
+			}.bind(this);
+
+			const makeButton = function (color) {
+				return EL('div', {
+					classList: [`pokedex__${color}_btn`],
+					events: {
+						mousedown: buttonClicked(color),
+						mouseup: buttonClicked(color),
+						touchstart: buttonClicked(color),
+						touchend: buttonClicked(color)
+					}
+				});
+			};
+
 			setTimeout(function() {
 				[
 					EL('div', { classList: ['pokedex__outer_right_upper'],
@@ -268,20 +306,20 @@
 										children: [
 											EL('div', { classList: ['pokedex__blue_btn_row'],
 												children: [
-													EL('div', { classList: ['pokedex__blue_btn'] }),
-													EL('div', { classList: ['pokedex__blue_btn'] }),
-													EL('div', { classList: ['pokedex__blue_btn'] }),
-													EL('div', { classList: ['pokedex__blue_btn'] }),
-													EL('div', { classList: ['pokedex__blue_btn'] }),
+													makeButton('blue'),
+													makeButton('blue'),
+													makeButton('blue'),
+													makeButton('blue'),
+													makeButton('blue'),
 												]
 											}),
 											EL('div', { classList: ['pokedex__blue_btn_row'],
 												children: [
-													EL('div', { classList: ['pokedex__blue_btn'] }),
-													EL('div', { classList: ['pokedex__blue_btn'] }),
-													EL('div', { classList: ['pokedex__blue_btn'] }),
-													EL('div', { classList: ['pokedex__blue_btn'] }),
-													EL('div', { classList: ['pokedex__blue_btn'] }),
+													makeButton('blue'),
+													makeButton('blue'),
+													makeButton('blue'),
+													makeButton('blue'),
+													makeButton('blue'),
 												]
 											}),
 										]
@@ -294,9 +332,9 @@
 									}),
 									EL('div', { classList: ['pokedex__btn_other'],
 										children: [
-											EL('div', { classList: ['pokedex__btn_white'] }),
-											EL('div', { classList: ['pokedex__btn_white'] }),
-											EL('div', { classList: ['pokedex__btn_yellow_circle'] })
+											makeButton('white'),
+											makeButton('white'),
+											makeButton('yellow'),
 										]
 									}),
 								]
