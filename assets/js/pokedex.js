@@ -71,12 +71,12 @@
 			if (!this.viewingData) {
 				this.viewingData = true;
 
-				this.oldPokeview = document.getElementById('pokeview');
 				let pokeEntry = (Number(this.active.id.split('poke-')[1])) + 1;
 
-				this.pokeviewParent = this.oldPokeview.parentNode;
-				this.pokeviewParent.removeChild(this.oldPokeview);
-				this.newPokeview = EL('div', { classList: ['pokedex__view_left'], children: [
+				this.pokeviewParent = this.activeListElement.parentNode;
+				this.pokeviewParent.removeChild(this.activeListElement);
+
+				this.activeListElement = EL('div', { classList: ['pokedex__view_left'], children: [
 					EL('img', {
 						id: `poke-img-${pokeEntry}`,
 						classList: ['poke-img'],
@@ -84,7 +84,87 @@
 					}),
 				]});
 
-				this.pokeviewParent.appendChild(this.newPokeview);
+				this.pokeviewParent.appendChild(this.activeListElement);
+			}
+		}
+
+		loadAreas(e) {
+			let pokeEntry = (Number(this.active.id.split('poke-')[1]));
+			let pokemon = this.pokeData[pokeEntry];
+
+			const cssClassExists= (c) => {
+				let rules = document.styleSheets[0].rules;
+				for (const key in rules) {
+					let rule = rules[key];
+					if (rule.selectorText === c) {
+						return true;
+					}
+				}
+
+				return false;
+			};
+
+			const makeAreas = function (res) {
+				if (!this.viewingAreas) {
+					this.viewingAreas = true;
+					let pokeEntry = (Number(this.active.id.split('poke-')[1])) + 1;
+
+					this.pokeviewParent = this.activeListElement.parentNode;
+					this.pokeviewParent.removeChild(this.activeListElement);
+
+					let filtered = res.filter(area => {
+						let town = area.location_area.name.split('-area')[0];
+						town = town.replace(/^\.*?\(?=-[0-9]+f/, "");
+						town = town.replace(/^\.*?\(?=-b[0-9]+f/, "");
+
+						const exists = cssClassExists(`.${town}`)
+						if (!exists) {
+							console.log ('Towns that cannot be shown ', town);
+						}
+						return exists;
+					});
+
+					if (filtered.length === 0) {
+						filtered.push({ location_area: { name: 'not-found-area' } });
+					}
+
+					this.activeListElement = EL('div', { classList: ['pokedex__view_left'], children: [
+						EL('img', { classList: ['kanto-map'], src: 'assets/img/kanto.jpg' }),
+					].concat(filtered.map(area => {
+						let town = area.location_area.name.split('-area')[0];
+						town = town.replace(/^\.*?\(?=-[0-9]+f/, "");
+						town = town.replace(/^\.*?\(?=-b[0-9]+f/, "");
+
+						if (town === 'not-found') {
+							return EL('p', { classList: ['poke-area-text'], innerHTML: 'Location unknown' });
+						} else {
+							return EL('span', { classList: ['kanto-map-overlay', town] });
+						}
+					}))});
+
+					this.pokeviewParent.appendChild(this.activeListElement);
+				}
+			}.bind(this);
+
+			if (pokemon.areas) {
+				makeAreas(pokemon.areas);
+			} else {
+				new Promise((res, rej) => {
+					let req = new HttpRequest('GET', {
+						url: `https://pokeapi.co/api/v2/pokemon/${pokeEntry+1}/encounters`,
+						success: e => { res(e) },
+						error: function(e) {
+							console.log ('error occurred ' + e);
+							rej(e);
+						}
+					});
+
+					req.send();
+				}).then(res => {
+					const data = JSON.parse(res.responseText);
+					pokemon.areas = data;
+					makeAreas(pokemon.areas);
+				});
 			}
 		}
 
@@ -101,7 +181,6 @@
 					cancelAnimationFrame(this.waveformAnimReq);
 					let canvas = document.getElementById('poke-cry-waveform');
 					let canvasCtx = canvas.getContext('2d');
-					console.log (canvas.width, canvas.height);
 					canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 					canvasCtx.beginPath();
 				});
@@ -163,10 +242,12 @@
 		}
 
 		quit(e) {
-			if (this.viewingData) {
-				this.pokeviewParent.removeChild(this.newPokeview);
-				this.pokeviewParent.appendChild(this.oldPokeview);
+			if (this.viewingData || this.viewingAreas) {
+				this.pokeviewParent.removeChild(this.activeListElement);
+				this.pokeviewParent.appendChild(this.pokeListElement);
 				this.viewingData = false;
+				this.viewingAreas = false;
+				this.activeListElement = this.pokeListElement;
 				this.active.scrollIntoView();
 			}
 		}
@@ -205,12 +286,15 @@
 				entries = this.entries,
 				viewport = this.viewport;
 
+			this.pokeListElement = EL('div', { id: 'pokeview', classList: ['pokedex__view_left'], children: entries });
+			this.activeListElement = this.pokeListElement;
+
 			setTimeout(function() {
 				let viewEl = EL('div', { classList: ['pokedex__view'],
 					children: [
 						EL('div', { classList: ['pokedex__view_wrap'],
 							children: [
-								EL('div', { id: 'pokeview', classList: ['pokedex__view_left'], children: entries }),
+								this.pokeListElement,
 								EL('div', { classList: ['pokedex__view_right'],
 									children: [
 										EL('div', { classList: ['pokedex__view_right_upper'],
@@ -229,7 +313,10 @@
 													id: 'poke-cry',
 													events: { click: e => { this.playCry(e); } }
 												}),
-												span('Area'),
+												span('Area', {
+													id: 'poke-area',
+													events: { click: e => { this.loadAreas(e); } }
+												}),
 												span('Quit', {
 													id: 'poke-quit',
 													events: { click: e => { this.quit(e); } }

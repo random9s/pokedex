@@ -500,3 +500,242 @@
     width: 100px;
     margin-left: 15%;
 }
+.poke-area-text {
+    font-size: 8px;
+    background-color: transparent;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+.kanto-map {
+    background: transparent;
+    height: 130px;
+    width: 130px;
+    position: relative;
+}
+.kanto-map-overlay {
+    background: transparent;
+    border: 2px solid red;
+    width: 7px;
+    height: 7px;
+    animation: blinker 1s linear infinite;
+}
+.pallet-town {
+    position: absolute;
+    margin-left: -106px;
+    margin-top: 82px;
+}
+.kanto-route-1 {
+    position: absolute;
+    margin-left: -106px;
+    margin-top: 71px;
+}
+.viridian-city {
+    position: absolute;
+    margin-left: -106px;
+    margin-top: 60px;
+}
+.viridian-forest {
+    position: absolute;
+    margin-left: -106px;
+    margin-top: 42px;
+}
+.kanto-route-2 {
+    position: absolute;
+    margin-left: -106px;
+    margin-top: 32px;
+}
+.pewter-city {
+    position: absolute;
+    margin-left: -106px;
+    margin-top: 21px;
+}
+.kanto-route-3 {
+    position: absolute;
+    margin-left: -93px;
+    margin-top: 21px;
+}
+.mt-moon {
+    position: absolute;
+    margin-left: -80px;
+    margin-top: 13px;
+}
+.kanto-route-4 {
+    position: absolute;
+    margin-left: -69px;
+    margin-top: 13px;
+}
+.cerulean-city {
+    position: absolute;
+    margin-left: -54px;
+    margin-top: 13px;
+}
+.kanto-route-5 {
+    position: absolute;
+    margin-left: -54px;
+    margin-top: 25px;
+}
+.rock-tunnel {
+    position: absolute;
+    margin-left: -28px;
+    margin-top: 14px;
+}
+.power-plant{
+    position: absolute;
+    margin-left: -28px;
+    margin-top: 29px;
+}
+.lavender-town {
+    position: absolute;
+    margin-left: -28px;
+    margin-top: 37px;
+}
+.pokemon-tower {
+    position: absolute;
+    margin-left: -28px;
+    margin-top: 37px;
+}
+.saffron-city {
+    position: absolute;
+    margin-left: -54px;
+    margin-top: 37px;
+}
+.kanto-route-6 {
+    position: absolute;
+    margin-left: -54px;
+    margin-top: 53px;
+}
+.kanto-route-7 {
+    position: absolute;
+    margin-left: -65px;
+    margin-top: 37px;
+}
+.kanto-route-8 {
+    position: absolute;
+    margin-left: -42px;
+    margin-top: 37px;
+}
+.kanto-route-9 {
+    position: absolute;
+    margin-left: -38px;
+    margin-top: 14px;
+}
+.kanto-route-10 {
+    position: absolute;
+    margin-left: -28px;
+    margin-top: 21px;
+}
+.celedon-city {
+    position: absolute;
+    margin-left: -74px;
+    margin-top: 37px;
+}
+.vermillion-city {
+    position: absolute;
+    margin-left: -54px;
+    margin-top: 67px;
+}
+.kanto-route-11 {
+    position: absolute;
+    margin-left: -40px;
+    margin-top: 67px;
+}
+.kanto-route-12 {
+    position: absolute;
+    margin-left: -28px;
+    margin-top: 77px;
+}
+.kanto-route-13 {
+    position: absolute;
+    margin-left: -40px;
+    margin-top: 83px;
+}
+.kanto-route-14 {
+    position: absolute;
+    margin-left: -48px;
+    margin-top: 89px;
+}
+.kanto-route-15 {
+    position: absolute;
+    margin-left: -54px;
+    margin-top: 98px;
+}
+.kanto-route-16 {
+    position: absolute;
+    margin-left: -94px;
+    margin-top: 37px;
+}
+.kanto-route-17 {
+    position: absolute;
+    margin-left: -94px;
+    margin-top: 67px;
+}
+.kanto-route-18 {
+    position: absolute;
+    margin-left: -78px;
+    margin-top: 98px;
+}
+.fuschia-city {
+    position: absolute;
+    margin-left: -67px;
+    margin-top: 98px;
+}
+.kanto-route-19 {
+    position: absolute;
+    margin-left: -67px;
+    margin-top: 113px;
+}
+.kanto-route-20 {
+    position: absolute;
+    margin-left: -78px;
+    margin-top: 113px;
+}
+.seaform-islands {
+    position: absolute;
+    margin-left: -87px;
+    margin-top: 113px;
+}
+.cinnibar {
+    position: absolute;
+    margin-left: -106px;
+    margin-top: 113px;
+}
+.kanto-route-21 {
+    position: absolute;
+    margin-left: -106px;
+    margin-top: 98px;
+}
+.kanto-route-22 {
+    position: absolute;
+    margin-left: -116px;
+    margin-top: 60px;
+}
+.kanto-route-23 {
+    position: absolute;
+    margin-left: -119px;
+    margin-top: 42px;
+}
+.kanto-route-24 {
+    position: absolute;
+    margin-left: -54px;
+    margin-top: 3px;
+}
+.kanto-route-25 {
+    position: absolute;
+    margin-left: -44px;
+    margin-top: -2px;
+}
+.kanto-victory-road {
+    position: absolute;
+    margin-left: -119px;
+    margin-top: 29px;
+}
+.indigo-plateau {
+    position: absolute;
+    margin-left: -119px;
+    margin-top: 14px;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
